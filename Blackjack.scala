@@ -142,12 +142,16 @@ class dealer{
 
   def play(): Unit ={
 
-    if(point(1)<21){
+    if(point(1)>16&&point(1)<21){
       val r=new Random()
       val n:Int=r.nextInt(2)
       if(n==0) {
         count(1)
         if(point(1)<21) play()
+        else{
+          println(s"The dealer's score is ${point(1)}.")
+          println("You win.")
+        }
       }
       else{
         println(s"The dealer's score is ${point(1)}.")
