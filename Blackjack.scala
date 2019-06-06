@@ -1,4 +1,3 @@
-import scala.util.Random
 import scala.util.control.Breaks
 
 object Blackjack{
@@ -141,32 +140,31 @@ class dealer{
   }
 
   def play(): Unit ={
-
-    if(point(1)>16&&point(1)<21){
-      val r=new Random()
-      val n:Int=r.nextInt(2)
-      if(n==0) {
-        count(1)
-        if(point(1)<21) play()
-        else{
-          println(s"The dealer's score is ${point(1)}.")
-          println("You win.")
-        }
-      }
-      else{
-        println(s"The dealer's score is ${point(1)}.")
-        if(point(0)>point(1))
-          println("You win.")
-        else if(point(0)<point(1))
-          println("You lose.")
-        else
-          println("This game is a draw.")
-      }
+    if(point(1)<=17){
+      count(1)
+      play()
     }
-    else{
-      println(s"The dealer's score is ${point(1)}.")
-      println("You win.")
+    else {
+      val r = new Random()
+      val n: Int = r.nextInt(2)
+
+      if (n == 0) {
+        count(1)
+        if (point(1) <= 21) play()
+        else println(s"The dealer's score is ${point(1)}.\nYou win!")
+      }
+      else {
+        battle()
+      }
     }
   }
-
+  def battle(): Unit ={
+    println(s"The dealer's score is ${point(1)}.")
+    if(point(0)>point(1))
+      println("You win!")
+    else if(point(0)<point(1))
+      println("You lose.")
+    else
+      println("This game is a draw.")
+  }
 }
